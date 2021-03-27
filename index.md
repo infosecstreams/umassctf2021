@@ -26,9 +26,9 @@
     - [Description - notes](#description---notes)
     - [Process - notes](#process---notes)
     - [Screen Grabs - notes](#screen-grabs---notes)
-      - [Analyzing the Memory Dump](#analyzing-the-memory-dump)
-      - [Dumping the Memory Contents](#dumping-the-memory-contents)
-      - [Decoding the Flag](#decoding-the-flag)
+      - [Analyzing the Memory Dump - notes](#analyzing-the-memory-dump---notes)
+      - [Dumping the Memory Contents - notes](#dumping-the-memory-contents---notes)
+      - [Decoding the Flag - notes](#decoding-the-flag---notes)
     - [Tools Used - notes](#tools-used---notes)
   - [Example Challenge Name (ECN)](#example-challenge-name-ecn)
     - [Description - ECN](#description---ecn)
@@ -49,19 +49,19 @@ This box was a simple extension filter bypass to gain a shell and get the flag.
 ### Process - HP1
 
 1. Started `netcat` listener on `8001`.
-2. Uploaded php reverse shell with an image extension -- `.png` worked fine.
-3. We're given a random filename and a link to view it.
-4. Viewing the link executed the reverse shell.
-  `http://34.121.84.161:8086/show.php?filename=0YE8gg`.
+1. Uploaded php reverse shell with an image extension -- `.png` worked fine.
+1. We're given a random filename `0YE8gg` and a link (`http://34.121.84.161:8086/show.php?filename=0YE8gg`) to view it.
+1. Viewing the link executes the reverse shell to give us access.
+1. From here we can explore the server and get the flag.
 
-```shell
-hermit@aec9a5b5ef1d:/$ ls /home/hermit
-ls /home/hermit
-userflag.txt
-hermit@aec9a5b5ef1d:/$ cat /home/hermit/userflag.txt
-cat /home/hermit/userflag.txt
-UMASS{a_picture_paints_a_thousand_shells}
-```
+    ```shell
+    hermit@aec9a5b5ef1d:/$ ls /home/hermit
+    ls /home/hermit
+    userflag.txt
+    hermit@aec9a5b5ef1d:/$ cat /home/hermit/userflag.txt
+    cat /home/hermit/userflag.txt
+    UMASS{a_picture_paints_a_thousand_shells}
+    ```
 
 ### Screen Grabs - HP1
 
@@ -227,6 +227,8 @@ This challenge starts off with text encoded in dvorak. Converting it we find a j
 
 ### Description - notes
 
+Solved By: [OreoByte](https://github.com/OreoByte)
+
 Author: [goproslowyo](https://github.com/goproslowyo)
 
 We're given a memory dump to analyze. Inside we find a base64 encoded string on the users clipboard containing the flag.
@@ -293,15 +295,15 @@ We're given a memory dump to analyze. Inside we find a base64 encoded string on 
 
 ### Screen Grabs - notes
 
-#### Analyzing the Memory Dump
+#### Analyzing the Memory Dump - notes
 
 ![mem dump analysis](./assets/notes/analyze.png)
 
-#### Dumping the Memory Contents
+#### Dumping the Memory Contents - notes
 
 ![mem dump contents](./assets/notes/dump.png)
 
-#### Decoding the Flag
+#### Decoding the Flag - notes
 
 ![flag decoding](./assets/notes/flag.png)
 
@@ -324,19 +326,19 @@ Quick overview of box, e.g. this box was a simple extension filter bypass to gai
 ### Process - ECN
 
 1. Started `netcat` listener on `8001`.
-2. Uploaded php reverse shell with an image extension -- `.png` worked fine.
-3. We're given a random filename and a link to view it.
-4. Viewing the link executed the reverse shell.
-  `http://34.121.84.161:8086/show.php?filename=0YE8gg`.
+1. Uploaded php reverse shell with an image extension -- `.png` worked fine.
+1. We're given a random filename `0YE8gg` and a link (`http://34.121.84.161:8086/show.php?filename=0YE8gg`) to view it.
+1. Viewing the link executes the reverse shell to give us access.
+1. From here we can explore the server and get the flag.
 
-```shell
-hermit@aec9a5b5ef1d:/$ ls /home/hermit
-ls /home/hermit
-userflag.txt
-hermit@aec9a5b5ef1d:/$ cat /home/hermit/userflag.txt
-cat /home/hermit/userflag.txt
-UMASS{a_picture_paints_a_thousand_shells}
-```
+    ```shell
+    hermit@aec9a5b5ef1d:/$ ls /home/hermit
+    ls /home/hermit
+    userflag.txt
+    hermit@aec9a5b5ef1d:/$ cat /home/hermit/userflag.txt
+    cat /home/hermit/userflag.txt
+    UMASS{a_picture_paints_a_thousand_shells}
+    ```
 
 ### Screen Grabs - ECN
 
