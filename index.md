@@ -1,11 +1,12 @@
-# UMASS CTF 2021
+# UMASS CTF 2021 Write Ups
 
 [UMASS CTF 2021](https://ctf.umasscybersec.org/challenges#)
+
 [CTF Time](https://ctftime.org/event/1282)
 
 ---
 
-- [UMASS CTF 2021](#umass-ctf-2021)
+- [UMASS CTF 2021 Write Ups](#umass-ctf-2021-write-ups)
   - [Hermit - Part 1 (HP1)](#hermit---part-1-hp1)
     - [Description - HP1](#description---hp1)
     - [Process - HP1](#process---hp1)
@@ -15,6 +16,11 @@
       - [Root LUL - HP1](#root-lul---hp1)
       - [Proof - HP1](#proof---hp1)
     - [Tools Used - HP1](#tools-used---hp1)
+  - [ekrpat (ekrpat)](#ekrpat-ekrpat)
+    - [Description - ekrpat](#description---ekrpat)
+    - [Process - ekrpat](#process---ekrpat)
+    - [Screen Grabs - ekrpat](#screen-grabs---ekrpat)
+    - [Tools User - ekrpat](#tools-user---ekrpat)
   - [Example Challenge Name (ECN1)](#example-challenge-name-ecn1)
     - [Description - ECN1](#description---ecn1)
     - [Process - ECN1](#process---ecn1)
@@ -27,7 +33,7 @@
 
 ### Description - HP1
 
-Author: goproslowyo
+Author: [goproslowyo](https://github.com/goproslowyo)
 
 This box was a simple extension filter bypass to gain a shell and get the flag.
 
@@ -166,6 +172,42 @@ function printit($string) {
 }
 ?>
 ```
+---
+
+## ekrpat (ekrpat)
+
+### Description - ekrpat
+
+Author: [goproslowyo](https://github.com/goproslowyo)
+
+This challenge starts off with text encoded in dvorak. Converting it we find a jail we need to break out of.
+
+### Process - ekrpat
+
+1. We're given an IP and port to connect to `34.72.64.224` and `8083`. Upon connecting we find a strange code:
+
+```shell
+$ nc 34.72.64.224 8083
+Frg-k. xprt.b mf jre.! >ojal. ,cydrgy yd. d.nl ru .kanw .q.jw cmlrpyw rl.bw
+row p.aew ofoy.mw abe ,pcy.v Ucpoyw .by.p -ekrpat-v Frg ,cnn yd.b i.y abryd.p
+cblgy ,dcjd frg jab go. ypf yr xp.at rgy ru yd. hacnv
+```
+
+2. This is the Dvorak keyboard layout so let's decode it to:
+
+```text
+You've broken my code! Escape without the help of eval, exec, import, open,
+os, read, system, and write. First, enter 'dvorak'. You will then get another
+input which you can use try to break out of the jail.
+```
+
+### Screen Grabs - ekrpat
+
+![initial connection](./assets/ekrpat/ekrpat.png)
+
+### Tools User - ekrpat
+
+1. [Dvorak Encoder/Decoder](http://wbic16.xedoloh.com/dvorak.html)
 
 ---
 
@@ -175,7 +217,7 @@ template:
 
 ### Description - ECN1
 
-Author: you
+Author: [you](https://yourlink)
 
 Quick overview of box, e.g. this box was a simple extension filter bypass to gain a shell and get the flag.
 
