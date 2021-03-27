@@ -52,19 +52,19 @@ UMASS{a_picture_paints_a_thousand_shells}
 
 #### User Shell - HP1
 
-![user shell](./assets/hp1/shell.png)
+![user shell](./assets/HP1/shell.png)
 
 #### User Flag - HP1
 
-![userflag.txt](./assets/hp1/flag.png)
+![userflag.txt](./assets/HP1/flag.png)
 
 #### Root LUL - HP1
 
-![{a_test_of_integrity}](./assets/hp1/rootlol.png)
+![{a_test_of_integrity}](./assets/HP1/rootlol.png)
 
 #### Proof - HP1
 
-![proof](./assets/hp1/proof.png)
+![proof](./assets/HP1/proof.png)
 
 ### Tools Used - HP1
 
