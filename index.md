@@ -20,12 +20,21 @@
     - [Description - ekrpat](#description---ekrpat)
     - [Process - ekrpat](#process---ekrpat)
     - [Screen Grabs - ekrpat](#screen-grabs---ekrpat)
-    - [Tools User - ekrpat](#tools-user---ekrpat)
-  - [Example Challenge Name (ECN1)](#example-challenge-name-ecn1)
-    - [Description - ECN1](#description---ecn1)
-    - [Process - ECN1](#process---ecn1)
-    - [Screen Grabs - ECN1](#screen-grabs---ecn1)
-    - [Tools User - ECN1](#tools-user---ecn1)
+      - [What We See First - ekrpat](#what-we-see-first---ekrpat)
+    - [Tools Used - ekrpat](#tools-used---ekrpat)
+  - [Notes (notes)](#notes-notes)
+    - [Description - notes](#description---notes)
+    - [Process - notes](#process---notes)
+    - [Screen Grabs - notes](#screen-grabs---notes)
+      - [Analyzing the Memory Dump](#analyzing-the-memory-dump)
+      - [Dumping the Memory Contents](#dumping-the-memory-contents)
+      - [Decoding the Flag](#decoding-the-flag)
+    - [Tools Used - notes](#tools-used---notes)
+  - [Example Challenge Name (ECN)](#example-challenge-name-ecn)
+    - [Description - ECN](#description---ecn)
+    - [Process - ECN](#process---ecn)
+    - [Screen Grabs - ECN](#screen-grabs---ecn)
+    - [Tools Used - ECN](#tools-used---ecn)
 
 ---
 
@@ -172,6 +181,7 @@ function printit($string) {
 }
 ?>
 ```
+
 ---
 
 ## ekrpat (ekrpat)
@@ -186,42 +196,132 @@ This challenge starts off with text encoded in dvorak. Converting it we find a j
 
 1. We're given an IP and port to connect to `34.72.64.224` and `8083`. Upon connecting we find a strange code:
 
-```shell
-$ nc 34.72.64.224 8083
-Frg-k. xprt.b mf jre.! >ojal. ,cydrgy yd. d.nl ru .kanw .q.jw cmlrpyw rl.bw
-row p.aew ofoy.mw abe ,pcy.v Ucpoyw .by.p -ekrpat-v Frg ,cnn yd.b i.y abryd.p
-cblgy ,dcjd frg jab go. ypf yr xp.at rgy ru yd. hacnv
-```
+    ```shell
+    $ nc 34.72.64.224 8083
+    Frg-k. xprt.b mf jre.! >ojal. ,cydrgy yd. d.nl ru .kanw .q.jw cmlrpyw rl.bw
+    row p.aew ofoy.mw abe ,pcy.v Ucpoyw .by.p -ekrpat-v Frg ,cnn yd.b i.y abryd.p
+    cblgy ,dcjd frg jab go. ypf yr xp.at rgy ru yd. hacnv
+    ```
 
-2. This is the Dvorak keyboard layout so let's decode it to:
+1. This is the Dvorak keyboard layout so let's decode it to:
 
-```text
-You've broken my code! Escape without the help of eval, exec, import, open,
-os, read, system, and write. First, enter 'dvorak'. You will then get another
-input which you can use try to break out of the jail.
-```
+    ```text
+    You've broken my code! Escape without the help of eval, exec, import, open,
+    os, read, system, and write. First, enter 'dvorak'. You will then get another
+    input which you can use try to break out of the jail.
+    ```
 
 ### Screen Grabs - ekrpat
 
+#### What We See First - ekrpat
+
 ![initial connection](./assets/ekrpat/ekrpat.png)
 
-### Tools User - ekrpat
+### Tools Used - ekrpat
 
 1. [Dvorak Encoder/Decoder](http://wbic16.xedoloh.com/dvorak.html)
 
 ---
 
+## Notes (notes)
+
+### Description - notes
+
+Author: [goproslowyo](https://github.com/goproslowyo)
+
+We're given a memory dump to analyze. Inside we find a base64 encoded string on the users clipboard containing the flag.
+
+### Process - notes
+
+1. Downloaded `image.mem` for the challenge.
+
+    ```shell
+    root@ip-10-10-162-135:~/repos# curl -LO http://static.ctf.umasscybersec.org/forensics/13096721-bb26-4b79-956f-3f0cddebd49b/image.mem
+    ```
+
+1. Analyze the memory dump:
+
+    ```shell
+    root@ip-10-10-162-135:~/repos# vol.py -f image.mem imageinfo | grep -vi 'fail'
+    Volatility Foundation Volatility Framework 2.6.1
+    INFO    : volatility.debug    : Determining profile based on KDBG search...
+              Suggested Profile(s) : Win7SP1x64, Win7SP0x64, Win2008R2SP0x64, Win2008R2SP1x64_24000, Win2008R2SP1x64_23418, Win2008R2SP1x64, Win7SP1x64_24000, Win7SP1x64_23418
+                        AS Layer1 : WindowsAMD64PagedMemory (Kernel AS)
+                        AS Layer2 : FileAddressSpace (/root/repos/image.mem)
+                          PAE type : No PAE
+                              DTB : 0x187000L
+                              KDBG : 0xf80002a3b0a0L
+              Number of Processors : 6
+        Image Type (Service Pack) : 1
+                    KPCR for CPU 0 : 0xfffff80002a3cd00L
+                    KPCR for CPU 1 : 0xfffff880009f1000L
+                    KPCR for CPU 2 : 0xfffff88002ea9000L
+                    KPCR for CPU 3 : 0xfffff88002f1f000L
+                    KPCR for CPU 4 : 0xfffff88002f95000L
+                    KPCR for CPU 5 : 0xfffff88002fcb000L
+                KUSER_SHARED_DATA : 0xfffff78000000000L
+              Image date and time : 2021-03-20 18:16:12 UTC+0000
+        Image local date and time : 2021-03-20 13:16:12 -0500
+    ```
+
+1. Hidden in the users clipboard memory dump we find a base64 encoded string.
+
+    ```shell
+    root@ip-10-10-162-135:~/repos# vol.py -f image.mem --profile=Win7SP1x64 clipboard
+    Volatility Foundation Volatility Framework 2.6.1
+    *** Failed to import volatility.plugins.malware.apihooks (NameError: name 'distorm3' is not defined)
+    *** Failed to import volatility.plugins.malware.threads (NameError: name 'distorm3' is not defined)
+    *** Failed to import volatility.plugins.mac.apihooks_kernel (ImportError: No module named distorm3)
+    *** Failed to import volatility.plugins.mac.check_syscall_shadow (ImportError: No module named distorm3)
+    *** Failed to import volatility.plugins.ssdt (NameError: name 'distorm3' is not defined)
+    *** Failed to import volatility.plugins.mac.apihooks (ImportError: No module named distorm3)
+    Session    WindowStation Format                         Handle Object             Data
+    ---------- ------------- ------------------ ------------------ ------------------ --------------------------------------------------
+            1 WinSta0       CF_UNICODETEXT               0x5a00b5 0xfffff900c26aeb60 VU1BU1N7JDNDVVIzXyQ3MFJhZzN9Cg==
+            1 WinSta0       CF_TEXT              0x64006e00000010 ------------------
+            1 WinSta0       0x13c01b7L                        0x0 ------------------
+            1 WinSta0       CF_TEXT                           0x1 ------------------
+            1 ------------- ------------------          0x13c01b7 0xfffff900c06fa270
+    ```
+
+1. Decode the string:
+
+    ```shell
+    root@ip-10-10-162-135:~/repos# echo VU1BU1N7JDNDVVIzXyQ3MFJhZzN9Cg== | base64 -d
+    UMASS{$3CUR3_$70Rag3}
+    ```
+
+### Screen Grabs - notes
+
+#### Analyzing the Memory Dump
+
+![mem dump analysis](./assets/notes/analyze.png)
+
+#### Dumping the Memory Contents
+
+![mem dump contents](./assets/notes/dump.png)
+
+#### Decoding the Flag
+
+![flag decoding](./assets/notes/flag.png)
+
+### Tools Used - notes
+
+1. [Volatility v2.6](https://github.com/volatilityfoundation/volatility/tree/2.6)
+
+---
+
 template:
 
-## Example Challenge Name (ECN1)
+## Example Challenge Name (ECN)
 
-### Description - ECN1
+### Description - ECN
 
 Author: [you](https://yourlink)
 
 Quick overview of box, e.g. this box was a simple extension filter bypass to gain a shell and get the flag.
 
-### Process - ECN1
+### Process - ECN
 
 1. Started `netcat` listener on `8001`.
 2. Uploaded php reverse shell with an image extension -- `.png` worked fine.
@@ -238,14 +338,14 @@ cat /home/hermit/userflag.txt
 UMASS{a_picture_paints_a_thousand_shells}
 ```
 
-### Screen Grabs - ECN1
+### Screen Grabs - ECN
 
-![user shell](./assets/ECN1/shell.png)
-![userflag.txt](./assets/ECN1/flag.png)
-![{a_test_of_integrity}](./assets/ECN1/rootlol.png)
-![proof](./assets/ECN1/proof.png)
+![user shell](./assets/ECN/shell.png)
+![userflag.txt](./assets/ECN/flag.png)
+![{a_test_of_integrity}](./assets/ECN/rootlol.png)
+![proof](./assets/ECN/proof.png)
 
-### Tools User - ECN1
+### Tools Used - ECN
 
 1. A tool [link](https://somewhere.local)
 2. B Tool
