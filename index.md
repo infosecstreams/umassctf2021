@@ -242,8 +242,8 @@ We're given a memory dump to analyze. Inside we find a base64 encoded string on 
     ```
 
 1. Analyze the memory dump:
-    * First Using `imageinfo` to identify the the correct profile to use later with the `--profile=[profile]` argument. Seems like it's a Windows 7 memory dump.
-    * Can get the same results without the `grep -vi 'fail'`
+    * Using the `imageinfo` command can help to identify the correct profile to use later with the `--profile=[profile]` argument. From the output it seems like it's a `Windows 7 Service Pack 1` memory dump.
+    * We can get the same results without the `grep -vi 'fail'` (we we're removing some error out from python modules with that).
 
     ```shell
     root@ip-10-10-162-135:~/repos# vol.py -f image.mem imageinfo | grep -vi 'fail'
