@@ -273,12 +273,6 @@ We're given a memory dump to analyze. Inside we find a base64 encoded string on 
     ```shell
     root@ip-10-10-162-135:~/repos# vol.py -f image.mem --profile=Win7SP1x64 clipboard
     Volatility Foundation Volatility Framework 2.6.1
-    *** Failed to import volatility.plugins.malware.apihooks (NameError: name 'distorm3' is not defined)
-    *** Failed to import volatility.plugins.malware.threads (NameError: name 'distorm3' is not defined)
-    *** Failed to import volatility.plugins.mac.apihooks_kernel (ImportError: No module named distorm3)
-    *** Failed to import volatility.plugins.mac.check_syscall_shadow (ImportError: No module named distorm3)
-    *** Failed to import volatility.plugins.ssdt (NameError: name 'distorm3' is not defined)
-    *** Failed to import volatility.plugins.mac.apihooks (ImportError: No module named distorm3)
     Session    WindowStation Format                         Handle Object             Data
     ---------- ------------- ------------------ ------------------ ------------------ --------------------------------------------------
             1 WinSta0       CF_UNICODETEXT               0x5a00b5 0xfffff900c26aeb60 VU1BU1N7JDNDVVIzXyQ3MFJhZzN9Cg==
