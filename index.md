@@ -30,6 +30,11 @@
       - [Dumping the Memory Contents - notes](#dumping-the-memory-contents---notes)
       - [Decoding the Flag - notes](#decoding-the-flag---notes)
     - [Tools Used - notes](#tools-used---notes)
+  - [Scan Me (SM)](#scan-me-sm)
+    - [Description - SM](#description---sm)
+    - [Process - SM](#process---sm)
+    - [Screen Grabs - SM](#screen-grabs---sm)
+    - [Tools Used - SM](#tools-used---sm)
   - [Example Challenge Name (ECN)](#example-challenge-name-ecn)
     - [Description - ECN](#description---ecn)
     - [Process - ECN](#process---ecn)
@@ -242,8 +247,8 @@ We're given a memory dump to analyze. Inside we find a base64 encoded string on 
     ```
 
 1. Analyze the memory dump:
-    * Using the `imageinfo` command can help to identify the correct profile to use later with the `--profile=[profile]` argument. From the output it seems like it's a `Windows 7 Service Pack 1` memory dump.
-    * We can get the same results without the `grep -vi 'fail'` (we we're removing some error out from python modules with that).
+    - Using the `imageinfo` command can help to identify the correct profile to use later with the `--profile=[profile]` argument. From the output it seems like it's a `Windows 7 Service Pack 1` memory dump.
+    - We can get the same results without the `grep -vi 'fail'` (we we're removing some error out from python modules with that).
 
     ```shell
     root@ip-10-10-162-135:~/repos# vol.py -f image.mem imageinfo | grep -vi 'fail'
@@ -306,6 +311,36 @@ We're given a memory dump to analyze. Inside we find a base64 encoded string on 
 ### Tools Used - notes
 
 1. [Volatility v2.6](https://github.com/volatilityfoundation/volatility/tree/2.6)
+
+---
+
+## Scan Me (SM)
+
+### Description - SM
+
+Solved by: [goproslowyo](https://github.com/goproslowyo)
+
+Author: [goproslowyo](https://github.com/goproslowyo)
+
+This challenge was a broken QR code needed to be recreated to be read.
+
+### Process - SM
+
+1. We're given an `xcf` file which is a GIMP project file.
+    `http://static.ctf.umasscybersec.org/misc/8e0111c9-d8d0-4518-973d-dbdcbd9d5a42/scan_me.xcf`
+1. Opening the project in GIMP we can see there are two layers. Removing the top layer exposes the QR code.
+1. If we fix the missing corner for the QR code to help the camera align the data.
+1. The QR code gives us a URL [to an image](https://imgur.com/a/57VgQ8M) container our flag, `UMASS{RQ-3Z-m0d3}`.
+
+### Screen Grabs - SM
+
+![layers](./assets/SM/1.png)
+![qrcode](./assets/SM/2.png)
+![fixed](./assets/SM/3.png)
+
+### Tools Used - SM
+
+1. Used this as a reference to understand QR code format and recovery [QR Codes](https://www.datagenetics.com/blog/november12013/index.html)
 
 ---
 
