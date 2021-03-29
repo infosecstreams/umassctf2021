@@ -35,11 +35,6 @@
     - [Process - SM](#process---sm)
     - [Screen Grabs - SM](#screen-grabs---sm)
     - [Tools Used - SM](#tools-used---sm)
-  - [Example Challenge Name (ECN)](#example-challenge-name-ecn)
-    - [Description - ECN](#description---ecn)
-    - [Process - ECN](#process---ecn)
-    - [Screen Grabs - ECN](#screen-grabs---ecn)
-    - [Tools Used - ECN](#tools-used---ecn)
 
 ---
 
@@ -341,45 +336,3 @@ This challenge was a broken QR code needed to be recreated to be read.
 ### Tools Used - SM
 
 1. Used this as a reference to understand QR code format and recovery [QR Codes](https://www.datagenetics.com/blog/november12013/index.html)
-
----
-
-template:
-
-## Example Challenge Name (ECN)
-
-### Description - ECN
-
-Author: [you](https://yourlink)
-
-Quick overview of box, e.g. this box was a simple extension filter bypass to gain a shell and get the flag.
-
-### Process - ECN
-
-1. Started `netcat` listener on `8001`.
-1. Uploaded php reverse shell with an image extension -- `.png` worked fine.
-1. We're given a random filename `0YE8gg` and a link (`http://34.121.84.161:8086/show.php?filename=0YE8gg`) to view it.
-1. Viewing the link executes the reverse shell to give us access.
-1. From here we can explore the server and get the flag.
-
-    ```shell
-    hermit@aec9a5b5ef1d:/$ ls /home/hermit
-    ls /home/hermit
-    userflag.txt
-    hermit@aec9a5b5ef1d:/$ cat /home/hermit/userflag.txt
-    cat /home/hermit/userflag.txt
-    UMASS{a_picture_paints_a_thousand_shells}
-    ```
-
-### Screen Grabs - ECN
-
-![user shell](./assets/ECN/shell.png)
-![userflag.txt](./assets/ECN/flag.png)
-![{a_test_of_integrity}](./assets/ECN/rootlol.png)
-![proof](./assets/ECN/proof.png)
-
-### Tools Used - ECN
-
-1. A tool [link](https://somewhere.local)
-2. B Tool
-3. C Tool
